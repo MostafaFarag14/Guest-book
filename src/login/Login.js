@@ -14,7 +14,7 @@ export default class Login extends Component {
 
   handleLogin = () => {
     const { getUserInfo } = this.props
-    fetch('',
+    fetch('http://localhost:5000/login',
       {
         method: 'POST',
         headers: {
@@ -30,6 +30,7 @@ export default class Login extends Component {
       .then(response => {
         
         if (response.status !== 200) {
+          console.log(response)
           var warning = document.getElementById('warning')
           warning.style.display = "block"
           warning.innerText = 'Invalid email or password'
@@ -41,8 +42,7 @@ export default class Login extends Component {
       )
       .then(data => {
         this.setState({authorized: true})
-        getUserInfo(data.name, data.entries, data.id)
-        
+        getUserInfo(data.name, data.email)
       })
       .catch(err => {
         console.log(err)

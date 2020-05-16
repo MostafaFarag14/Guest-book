@@ -11,14 +11,13 @@ export default class Register extends Component {
       password: '',
       accepted: false
     }
-    
+
   }
-  
+
   handleRegister = () => {
     const { getUserInfo } = this.props
-    if(this.state.name.length && this.state.email.includes('@') && this.state.password.length)
-    {
-      fetch('https://radiant-peak-65277.herokuapp.com/register',
+    if (this.state.name.length && this.state.email.includes('@') && this.state.password.length) {
+      fetch('http://localhost:5000/register',
         {
           method: 'POST',
           headers: {
@@ -30,25 +29,33 @@ export default class Register extends Component {
               email: this.state.email,
               password: this.state.password
             })
-  
+
         }
       )
         .then(response => response.json())
         .then(data => {
-          if(data.id){
+          if (data) {
             console.log(data)
-            getUserInfo(data.name, data.entries, data.id)
-            this.setState({accepted: true})
+            getUserInfo(data.name, data.email)
+            this.setState({ accepted: true })
+          }
+          else if (data === 'email already exists') {
+            var warning = document.getElementById('warning')
+            warning.style.display = "block"
+            warning.innerText = 'email already exists'
+            warning.style.color = 'red'
           }
         })
-        .catch(err => this.setState({accepted: false}))
-      
+        .catch(err => {
+          this.setState({ accepted: false })
+        })
+
     }
   }
-  
+
   render() {
-    if(this.state.accepted){
-      return <Redirect to = '/home'/>
+    if (this.state.accepted) {
+      return <Redirect to='/home' />
     }
     return (
       <Container style={{ width: "30%" }}>
@@ -73,11 +80,11 @@ export default class Register extends Component {
             }} />
           </Form.Group>
 
-          
-            <Button variant="primary" type="submit" onClick={this.handleRegister}>
-              Register
+
+          <Button variant="primary" type="submit" onClick={this.handleRegister}>
+            Register
             </Button>
-          
+
         </div>
       </Container>
     )

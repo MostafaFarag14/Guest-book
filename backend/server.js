@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const bycrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs')
 const User = require('./models/user')
 const app = express()
 const port = process.env.PORT || 5000
@@ -32,15 +32,36 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
-
 const {name , email} = req.body
-const password = bycrypt.hashSync(req.body.password, 8)
-
+const password = bcrypt.hashSync(req.body.password, 8)
 const newUser = new User({name, password, email})
 
 newUser.save()
-.then( () => res.json('User registered !'))
-.catch( err => res.status(400).json('Errpr' + err))
+.then( user => res.json(user))
+.catch( err => res.status(400).json('email already exists'))
+})
+
+app.post('/login', (req, res)=> {
+    const {email, password} = req.body
+    let passIsValid = false
+    User.findOne({email: email})
+    .then(user => {
+      if (user) {
+        passIsValid = bcrypt.compareSync(password, user.password)
+          if (passIsValid) {
+            res.json(user)
+          }
+          else {
+            res.status('400').json('wrong pass')
+          }
+        }
+        else {
+          res.status('400').json('wrong user')
+        }
+      })
+      .catch(err => {
+        res.status('400').json('wrong credentials')
+      })
 })
 
 app.listen(port, () => {
