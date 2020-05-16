@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 const schema = mongoose.Schema
-const messageSchema = new schema (
+const messageSchema = new schema(
   {
-    content : {
+    content: {
       type: String,
       required: true
     },
@@ -11,7 +11,11 @@ const messageSchema = new schema (
       type: schema.Types.ObjectId,
       ref: 'User',
       required: true
-    }
+    },
+    replies: [{
+      type: schema.Types.ObjectId,
+      ref: 'message'
+    }]
   },
   {
     timestamps: true
