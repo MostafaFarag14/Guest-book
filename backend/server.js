@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
 const User = require('./models/user')
+const message = require('./models/message')
 const app = express()
 const port = process.env.PORT || 5000
 
@@ -62,6 +63,32 @@ app.post('/login', (req, res)=> {
       .catch(err => {
         res.status('400').json('wrong credentials')
       })
+})
+
+app.post('/message', (req, res) => {
+  const {content, email} = req.body
+  let newMessage
+  let owner
+  let userMessages 
+
+  User.findOne({email: email})
+  .then( user => {
+    owner = user.id
+    userMessages = user.messages
+    newMessage = new message({content, owner})
+    newMessage.save()
+    .then( message => {
+      userMessages.push(message.id) 
+    })
+    .then( () => {
+      user.update({messages: userMessages})
+      .then(() => res.json('user updated'))
+      .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
+  })
+  .catch(err => console.log(err))
+
 })
 
 app.listen(port, () => {

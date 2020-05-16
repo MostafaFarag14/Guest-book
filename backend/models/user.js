@@ -18,7 +18,8 @@ const userSchema = new schema(
       type: String ,
       required: true ,
       unique: true
-    }
+    },
+    messages: [ {type: schema.Types.ObjectId, ref: 'message'}]
   },
   {
     timestamps: true
