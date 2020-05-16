@@ -15,7 +15,7 @@ const userSchema = new schema(
       minlength: 6
     },
     email: {
-      type: Text ,
+      type: String ,
       required: true ,
       unique: true
     }
