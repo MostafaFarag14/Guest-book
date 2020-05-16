@@ -14,7 +14,7 @@ export default class Login extends Component {
 
   handleLogin = () => {
     const { getUserInfo } = this.props
-    fetch('https://radiant-peak-65277.herokuapp.com/login',
+    fetch('',
       {
         method: 'POST',
         headers: {
@@ -25,7 +25,6 @@ export default class Login extends Component {
             email: this.state.email,
             password: this.state.password
           })
-
       }
     )
       .then(response => {

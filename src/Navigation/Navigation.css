@@ -1,0 +1,8 @@
+.Navigation{
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px auto;
+}
+.sign{
+  margin: 5px;
+}
