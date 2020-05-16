@@ -52,6 +52,20 @@ app.get('/users', (req, res) => {
     .catch(err => res.status(400).json(`error ${err}`))
 })
 
+app.post('/user', (req, res) => {
+  User.findById(req.body.id)
+  .then(user => res.json(user))
+})
+
+app.post('/getmessage', (req,res) => {
+  message.findById(req.body.id)
+  .then(message => res.json(message))
+})
+app.get('/book', (req, res) => {
+  message.find()
+  .then(messages => res.json(messages))
+  .catch(err => res.status(404).json('no messages'))
+})
 app.post('/register', (req, res) => {
   const { name, email } = req.body
   const password = bcrypt.hashSync(req.body.password, 8)

@@ -3,6 +3,8 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import Login from '../login/Login'
 import Register from '../Register/Register'
 import Navigation from '../Navigation/Navigation'
+import Book from '../Book/Book'
+import MessageDetails from '../MessageDetails/MessageDetails'
 
 import './App.css'
 
@@ -24,15 +26,18 @@ export default class App extends Component {
   }
 
   getUserInfo = (name, email) => {
-    this.setState({ name: name, email: email })
+    this.setState({ name: name, email: email, authenticated: true })
+  }
+  getMessage = (message) => {
+    this.setState({messageDetails: message})
   }
 
   render() {
     return (
       <BrowserRouter>
 
+        <Navigation resetState={this.resetState} authenticated={this.state.authenticated}/>
         <Route exact path="/">
-          <Navigation resetState={this.resetState} />
           <div className="login-page">
             <Login className="login-form" getUserInfo={this.getUserInfo} />
             <div style={{ display: 'none', textAlign: 'center' }} id="warning"></div>
@@ -40,19 +45,18 @@ export default class App extends Component {
         </Route>
 
         <Route path="/register">
-          <Navigation resetState={this.resetState} />
           <Register getUserInfo={this.getUserInfo} />
           <div style={{ display: 'none', textAlign: 'center' }} id="warning"></div>
         </Route>
 
         <Route path="/home">
-          <Navigation resetState={this.resetState} />
           <h1>{`name is ${this.state.name}`}</h1>
           <h1>{`email is ${this.state.email}`}</h1>
+          <Book getMessage = {this.getMessage}/>
         </Route>
 
         <Route path="/message">
-          <Navigation resetState={this.resetState} />
+          <MessageDetails messageDetails={this.state.messageDetails}/>
         </Route>
 
       </BrowserRouter>

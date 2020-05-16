@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Button, Col } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import './Navigation.css'
-export default function Navigation({ resetState }) {
+export default function Navigation({ resetState, authenticated }) {
 
-  if (window.location.href.endsWith('home'))
+  if (authenticated)
     return (
       <Col className='Navigation'>
         <Link to="/">
