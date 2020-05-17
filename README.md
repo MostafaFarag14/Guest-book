@@ -1,8 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+## Register and login
+
+1. I used React bootstrap to make register and login forms
+2. To be able to navigate betwwen pages (register , login , home and message details page i used react router
+3. In navigation component there are 3 react router links to be able to login , register or signout
 
 ### `yarn start`
 
