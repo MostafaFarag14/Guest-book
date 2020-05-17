@@ -22,6 +22,7 @@ export default class Book extends Component {
     })
     .then(response => response.json())
     .then(jsonResponse => this.setState({messages: jsonResponse, refresh: ! this.state.refresh}))
+    .then( () => window.scrollTo(0,document.body.scrollHeight))
   }
   
   componentWillMount(){
@@ -41,7 +42,7 @@ export default class Book extends Component {
         <div>
           <WriteMessage refresh={this.refresh} reply={false} email={this.props.email}/>
           {this.state.messages.map( message => {
-          return <Message refresh={this.refresh} messageInfo={message} getMessage={this.props.getMessage}/>        })}
+          return <Message email={this.props.email}  refresh={this.refresh} messageInfo={message} getMessage={this.props.getMessage}/>        })}
         </div>
       )
   }

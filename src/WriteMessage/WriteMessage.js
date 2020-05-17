@@ -35,7 +35,11 @@ export default class WriteMessage extends Component {
           content: this.state.message
         })
       })
-      .then( () => this.props.refresh())
+      .then( () => {
+        this.props.refresh()
+        
+      }
+      )
     }
   }
 

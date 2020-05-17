@@ -51,7 +51,6 @@ export default class App extends Component {
         </Route>
 
         <Route path="/home">
-          
           <Book email={this.state.email} getMessage = {this.getMessage}/>
         </Route>
 

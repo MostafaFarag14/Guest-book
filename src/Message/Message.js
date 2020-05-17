@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Button, Col, Row } from 'react-bootstrap'
+import { Card, Button, Col, Row, Form } from 'react-bootstrap'
 import { Redirect } from 'react-router-dom'
 import { getMessageOwner } from '../API/getInfo'
 import './Message.css'
@@ -11,7 +11,8 @@ export default class Message extends Component {
       email: '',
       content: '',
       redirect: false,
-      owner: true
+      owner: false,
+      editMode: false
     }
   }
 
@@ -41,10 +42,34 @@ export default class Message extends Component {
       })
   }
 
+  edit = (e) => {
+    if (e.target.innerText === 'Save') {
+      this.setState({ editMode: false }, () => {
+        fetch('http://localhost:5000/editmessage', {
+          method: 'post',
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            id: this.props.messageInfo._id,
+            content: this.state.content
+          })
+        })
+          .then(res => res.json())
+          .then(() => {
+            this.props.refresh()
+          })
+      })
+      e.target.innerText = 'Edit'
+    }
+    else {
+      e.target.innerText = 'Save'
+      this.setState({ editMode: true })
+    }
+  }
   componentWillMount() {
     getMessageOwner(this.props.messageInfo.owner)
       .then(jsonResp => {
-        this.setState({ name: jsonResp.name, email: jsonResp.email, content: this.props.messageInfo.content })
+        this.setState({ name: jsonResp.name, email: jsonResp.email,
+           content: this.props.messageInfo.content, owner:  jsonResp.email === this.props.email})
       })
   }
   render() {
@@ -59,9 +84,16 @@ export default class Message extends Component {
               <h4>{this.state.name}</h4>
               <h6>{this.state.email}</h6>
             </Card.Title>
-            <Card.Text className="content">
-              {this.state.content}
-            </Card.Text>
+            {
+              !this.state.editMode && <Card.Text className="content">
+                {this.state.content}
+              </Card.Text>
+            }
+            {
+              this.state.editMode &&
+              <Form.Control as="textarea" rows="2" value={this.state.content} className="content"
+                onChange={(e) => this.setState({ content: e.target.value })} />
+            }
             <Row>
               <Col>
                 <Button variant="primary" onClick={this.reply}>Reply</Button>
