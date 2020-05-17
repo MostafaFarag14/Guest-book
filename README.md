@@ -5,6 +5,13 @@
 1. I used React bootstrap to make register and login forms
 2. To be able to navigate betwwen pages (register , login , home and message details page i used react router
 3. In navigation component there are 3 react router links to be able to login , register or signout
+4. In Register\login endpoint in backend i used bcryptjs to encrypt passwords before storing in database or comparing the entered one with the stored password
+5. For database i used Mongodb atlas as it's easy to create and connect a database 
+6. I created two models for user and message and used the reference model to relate documents  , every user has (name, email, password) and messages field which is an array to store id_s of user messages that he writes 
+7. Each  message has a content field , owner feld which is a reference to user id, reply field to indicate whether it's a message or a reply to another message and replies field which is an array of id_s that references another messages that are replies
+8. To connect backend server to database and make CRUD operations i used mongoose library 
+9. home scrren route renders a writeMessage component to enable user to write his own message and list of message components which data are fetched using /book endpoint 
+10. when user click reply to any message he will be directed to /message route which renders a writeMessage component but with different prop to save this message as a reply to the original message using the /reply endpoint
 
 ### `yarn start`
 
