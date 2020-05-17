@@ -27,7 +27,7 @@ export default class MessageDetails extends Component {
 
   }
   render() {
-    const { messageDetails } = this.props
+    const { messageDetails, email } = this.props
     return (
       <Container>
         <Col>
@@ -59,7 +59,7 @@ export default class MessageDetails extends Component {
           </Col>
         })}
         <Col md={{ span: 8, offset: 3 }}>
-          <WriteMessage />
+          <WriteMessage messageId={messageDetails.messageId} reply={true} email={email}/>
         </Col>
       </Container>
     )

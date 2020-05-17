@@ -18,14 +18,14 @@ connection.once('open', () => {
   console.log('4a8aaal')
 })
 
-const creatMessage = (content, email) => {
+const creatMessage = (reply,content, email) => {
   let newMessage
   let owner
 
   return User.findOne({ email: email })
     .then(user => {
       owner = user.id
-      newMessage = new message({ content, owner })
+      newMessage = new message({ content, owner,reply })
       newMessage.save()
       .then(message => {
         newMessage = message
@@ -62,7 +62,7 @@ app.post('/getmessage', (req,res) => {
   .then(message => res.json(message))
 })
 app.get('/book', (req, res) => {
-  message.find()
+  message.find({reply: false})
   .then(messages => res.json(messages))
   .catch(err => res.status(404).json('no messages'))
 })
@@ -101,14 +101,16 @@ app.post('/login', (req, res) => {
 
 app.post('/message', (req, res) => {
   const { content, email } = req.body
-  creatMessage(content, email)
+  const reply = false
+  creatMessage(reply,content, email)
     .then(message => res.json(message))
     .catch(err => console.log(err))
 })
 
 app.post('/reply', (req, res) => {
   const { messageId, email, content } = req.body
-  creatMessage(content, email)
+  const reply = true
+  creatMessage(reply,content, email)
   .then( reply => {
     message.findById(messageId)
     .then(message => {
@@ -119,6 +121,23 @@ app.post('/reply', (req, res) => {
       })
     })
   })
+})
+
+app.post('/editmessage', (req, res) => {
+  const {id, content} = req.body
+  message.updateOne({_id: id}, {content: content})
+  .then(message => res.json(message))
+  .catch( err => res.status(400).json(`error was bola ${err}`))
+})
+
+app.delete('/delete', (req, res) => {
+  message.deleteOne({_id: req.body.id})
+  .then(deleteResponse => {
+    if(deleteResponse.deletedCount > 0){
+      res.json('message deleted')
+    }
+  })
+  .catch(err => res.status(400).json(err))
 })
 
 app.listen(port, () => {

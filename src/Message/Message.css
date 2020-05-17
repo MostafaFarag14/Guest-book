@@ -6,3 +6,11 @@
 .content{
   font-size: 35px;
 }
+
+.editable{
+  text-align: end;
+}
+
+.editable button{
+  margin: 5px;
+}

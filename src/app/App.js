@@ -50,14 +50,14 @@ export default class App extends Component {
         </Route>
 
         <Route path="/home">
-          <WriteMessage email={this.state.email}/>
+          <WriteMessage reply={false} email={this.state.email}/>
           <h1>{`name is ${this.state.name}`}</h1>
           <h1>{`email is ${this.state.email}`}</h1>
           <Book getMessage = {this.getMessage}/>
         </Route>
 
         <Route path="/message">
-          <MessageDetails messageDetails={this.state.messageDetails}/>
+          <MessageDetails email={this.state.email} messageDetails={this.state.messageDetails}/>
         </Route>
 
       </BrowserRouter>

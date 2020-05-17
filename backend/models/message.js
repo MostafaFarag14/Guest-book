@@ -12,6 +12,9 @@ const messageSchema = new schema(
       ref: 'User',
       required: true
     },
+    reply: {
+      type: Boolean
+    },
     replies: [{
       type: schema.Types.ObjectId,
       ref: 'message'
