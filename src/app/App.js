@@ -5,7 +5,7 @@ import Register from '../Register/Register'
 import Navigation from '../Navigation/Navigation'
 import Book from '../Book/Book'
 import MessageDetails from '../MessageDetails/MessageDetails'
-import WriteMessage from '../WriteMessage/WriteMessage'
+
 import './App.css'
 
 const initialState = {
@@ -36,7 +36,8 @@ export default class App extends Component {
     return (
       <BrowserRouter>
 
-        <Navigation resetState={this.resetState} authenticated={this.state.authenticated}/>
+        <Navigation resetState={this.resetState} authenticated={this.state.authenticated}
+         name={this.state.name} email={this.state.email}/>
         <Route exact path="/">
           <div className="login-page">
             <Login className="login-form" getUserInfo={this.getUserInfo} />
@@ -50,10 +51,8 @@ export default class App extends Component {
         </Route>
 
         <Route path="/home">
-          <WriteMessage reply={false} email={this.state.email}/>
-          <h1>{`name is ${this.state.name}`}</h1>
-          <h1>{`email is ${this.state.email}`}</h1>
-          <Book getMessage = {this.getMessage}/>
+          
+          <Book email={this.state.email} getMessage = {this.getMessage}/>
         </Route>
 
         <Route path="/message">

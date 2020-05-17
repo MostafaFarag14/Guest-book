@@ -20,7 +20,9 @@ export default class WriteMessage extends Component {
           messageId: this.props.messageId
         })
       })
-      .then(message => console.log(message))
+      .then(res => res.json())
+      .then(message => this.props.updateMessage(message))
+      .then(this.setState({message: ''}))
     }
 
     else{
@@ -33,16 +35,15 @@ export default class WriteMessage extends Component {
           content: this.state.message
         })
       })
+      .then( () => this.props.refresh())
     }
   }
 
   render() {
     const {reply} = this.props
-    console.log(reply)
     return (
       <Container className="messageBox">
         <Form.Group controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Example textarea</Form.Label>
           <Form.Control as="textarea" rows="3" value={this.state.message} onChange={ (e) =>
              {this.setState({message: e.target.value})}}/>
         </Form.Group>

@@ -6,3 +6,17 @@
 .sign{
   margin: 5px;
 }
+
+.userInfo{
+  display: flex;
+  justify-content: flex-start;
+  margin: 20px auto;
+}
+.row{
+  margin-right: 0 ;
+}
+
+.userCard{
+  padding: 5px;
+  width: inherit;
+}

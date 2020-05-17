@@ -38,7 +38,6 @@ export default class Message extends Component {
       .then(res => res.json())
       .then(jsonres => {
         this.props.refresh()
-        console.log(jsonres)
       })
   }
 

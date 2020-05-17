@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
-import { Button, Col } from 'react-bootstrap'
+import { Button, Col, Row, Card } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import './Navigation.css'
-export default function Navigation({ resetState, authenticated }) {
+export default function Navigation({ resetState, authenticated, name, email }) {
 
   if (authenticated)
     return (
-      <Col className='Navigation'>
-        <Link to="/">
-          <Button variant="light" onClick={ () => resetState()} >Sign Out</Button>
-        </Link>
-      </Col>
+      <Row style={{ marginRight: "0px" }}>
+        <Col md="4" className="userInfo">
+          <Card className="userCard">
+            <Card.Title>
+              <h4>{name}</h4>
+              <h5>{email}</h5>
+            </Card.Title>
+          </Card>
+        </Col>
+        <Col className='Navigation'>
+          <Link to="/">
+            <Button variant="light" onClick={() => resetState()} >Sign Out</Button>
+          </Link>
+        </Col>
+      </Row>
     )
   else {
     return (

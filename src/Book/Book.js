@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Message from '../Message/Message'
+import WriteMessage from '../WriteMessage/WriteMessage'
 export default class Book extends Component {
   constructor() {
     super()
@@ -8,7 +9,7 @@ export default class Book extends Component {
       refresh: false
     }
   }
-
+  
   refresh = () => {
     console.log('refresh', this.state.refresh)
     fetch('http://localhost:5000/book',
@@ -20,8 +21,7 @@ export default class Book extends Component {
       }
     })
     .then(response => response.json())
-    .then(jsonResponse => this.setState({messages: jsonResponse, refresh: false}))
-    this.setState({refresh: true})
+    .then(jsonResponse => this.setState({messages: jsonResponse, refresh: ! this.state.refresh}))
   }
   
   componentWillMount(){
@@ -39,6 +39,7 @@ export default class Book extends Component {
   render() {
       return (
         <div>
+          <WriteMessage refresh={this.refresh} reply={false} email={this.props.email}/>
           {this.state.messages.map( message => {
           return <Message refresh={this.refresh} messageInfo={message} getMessage={this.props.getMessage}/>        })}
         </div>
