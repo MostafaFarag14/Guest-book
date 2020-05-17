@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Card, Button, Container } from 'react-bootstrap'
 import {getMessage, getMessageOwner} from '../API/getInfo'
+import WriteMessage from '../WriteMessage/WriteMessage';
 import './MessageDetails.css'
 export default class MessageDetails extends Component {
   constructor(props){
@@ -57,6 +58,9 @@ export default class MessageDetails extends Component {
           </Card>
           </Col>
         })}
+        <Col md={{ span: 8, offset: 3 }}>
+          <WriteMessage />
+        </Col>
       </Container>
     )
   }

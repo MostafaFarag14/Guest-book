@@ -5,7 +5,7 @@ import Register from '../Register/Register'
 import Navigation from '../Navigation/Navigation'
 import Book from '../Book/Book'
 import MessageDetails from '../MessageDetails/MessageDetails'
-
+import WriteMessage from '../WriteMessage/WriteMessage'
 import './App.css'
 
 const initialState = {
@@ -50,6 +50,7 @@ export default class App extends Component {
         </Route>
 
         <Route path="/home">
+          <WriteMessage email={this.state.email}/>
           <h1>{`name is ${this.state.name}`}</h1>
           <h1>{`email is ${this.state.email}`}</h1>
           <Book getMessage = {this.getMessage}/>

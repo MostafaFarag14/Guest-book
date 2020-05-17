@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Message from '../Message/Message'
-import './Book.css'
 export default class Book extends Component {
   constructor() {
     super()
