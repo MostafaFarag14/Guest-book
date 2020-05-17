@@ -14,4 +14,4 @@
 12. In backend server i created a function called createMessage to use it in creating a message or a reply by providing an argument to save it in reply field in message document , for example if it is a reply , /reply endpoint will first save the reply to database then get the original message and push that reply id to replies array of original message
 13. At home screen /book endpoint will get messages that has a reply attribute of false value to display only the written messages on wall or home screen not a reply to another message
 
-## editting message is not available yet
+## editting message in frontend is not available yet
