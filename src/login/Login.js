@@ -14,7 +14,7 @@ export default class Login extends Component {
 
   handleLogin = () => {
     const { getUserInfo } = this.props
-    fetch('http://localhost:5000/login',
+    fetch('https://pacific-atoll-58394.herokuapp.com/login',
       {
         method: 'POST',
         headers: {

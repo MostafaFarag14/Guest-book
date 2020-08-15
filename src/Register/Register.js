@@ -17,7 +17,7 @@ export default class Register extends Component {
   handleRegister = () => {
     const { getUserInfo } = this.props
     if (this.state.name.length && this.state.email.includes('@') && this.state.password.length) {
-      fetch('http://localhost:5000/register',
+      fetch('https://pacific-atoll-58394.herokuapp.com/register',
         {
           method: 'POST',
           headers: {

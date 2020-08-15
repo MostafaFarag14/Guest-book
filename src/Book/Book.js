@@ -12,7 +12,7 @@ export default class Book extends Component {
   
   refresh = () => {
     console.log('refresh', this.state.refresh)
-    fetch('http://localhost:5000/book',
+    fetch('https://pacific-atoll-58394.herokuapp.com/book',
     {
       method: 'get',
       headers: 
@@ -26,7 +26,7 @@ export default class Book extends Component {
   }
   
   componentWillMount(){
-    fetch('http://localhost:5000/book',
+    fetch('https://pacific-atoll-58394.herokuapp.com/book',
     {
       method: 'get',
       headers: 

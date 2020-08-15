@@ -29,7 +29,7 @@ export default class Message extends Component {
   }
 
   delete = () => {
-    fetch('http://localhost:5000/delete', {
+    fetch('https://pacific-atoll-58394.herokuapp.com/delete', {
       method: 'delete',
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -45,7 +45,7 @@ export default class Message extends Component {
   edit = (e) => {
     if (e.target.innerText === 'Save') {
       this.setState({ editMode: false }, () => {
-        fetch('http://localhost:5000/editmessage', {
+        fetch('https://pacific-atoll-58394.herokuapp.com/editmessage', {
           method: 'post',
           headers: { "content-type": "application/json" },
           body: JSON.stringify({

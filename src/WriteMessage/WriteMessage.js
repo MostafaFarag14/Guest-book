@@ -10,7 +10,7 @@ export default class WriteMessage extends Component {
   }
   handleMessage = (reply) => {
     if(reply){
-      fetch('http://localhost:5000/reply',
+      fetch('https://pacific-atoll-58394.herokuapp.com/reply',
       {
         method: 'post',
         headers: {"content-type": "application/json"},
@@ -26,7 +26,7 @@ export default class WriteMessage extends Component {
     }
 
     else{
-      fetch('http://localhost:5000/message',
+      fetch('https://pacific-atoll-58394.herokuapp.com/message',
       {
         method: 'post',
         headers: {"content-type": "application/json"},

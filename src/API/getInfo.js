@@ -1,5 +1,5 @@
 export const getMessage = (messageId) => {
-  return fetch('http://localhost:5000/getmessage',
+  return fetch('https://pacific-atoll-58394.herokuapp.com/getmessage',
   {
     method: 'post',
     headers: {"content-type": "application/json"},
@@ -13,7 +13,7 @@ export const getMessage = (messageId) => {
 
 
 export const getMessageOwner = (userId) => {
-  return fetch('http://localhost:5000/user',
+  return fetch('https://pacific-atoll-58394.herokuapp.com/user',
   {
     method: 'post',
     headers: {"content-type": "application/json"},
