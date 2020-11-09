@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
-import {Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 export default class Login extends Component {
   constructor(props) {
@@ -8,12 +8,14 @@ export default class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      authorized: false
+      authorized: false,
+      loading: false
     }
   }
 
   handleLogin = () => {
     const { getUserInfo } = this.props
+    this.setState({loading: true})
     fetch('https://pacific-atoll-58394.herokuapp.com/login',
       {
         method: 'POST',
@@ -28,8 +30,9 @@ export default class Login extends Component {
       }
     )
       .then(response => {
-        
+
         if (response.status !== 200) {
+          this.setState({loading: false})
           console.log(response)
           var warning = document.getElementById('warning')
           warning.style.display = "block"
@@ -41,7 +44,7 @@ export default class Login extends Component {
       }
       )
       .then(data => {
-        this.setState({authorized: true})
+        this.setState({ authorized: true })
         getUserInfo(data.name, data.email)
       })
       .catch(err => {
@@ -49,10 +52,10 @@ export default class Login extends Component {
       })
   }
   render() {
-    if(this.state.authorized){
-        return <Redirect to='/home'/>
+    if (this.state.authorized) {
+      return <Redirect to='/home' />
     }
-    else{
+    else {
 
       return (
         <Container style={{ width: "30%" }}>
@@ -63,7 +66,7 @@ export default class Login extends Component {
                 this.setState({ email: e.target.value })
               }} />
             </Form.Group>
-  
+
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={(e) => {
@@ -71,9 +74,9 @@ export default class Login extends Component {
               }} />
             </Form.Group>
             {
-                <Button variant="primary" type="button" onClick={this.handleLogin}>
-                  Sign in
-                 </Button>
+              <Button variant="primary" type="button" onClick={this.handleLogin} disabled={this.state.loading}>
+                {this.state.loading ? 'Loading...' : 'Sign in'}
+              </Button>
             }
           </div >
         </Container >

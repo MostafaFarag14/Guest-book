@@ -9,7 +9,8 @@ export default class Register extends Component {
       name: '',
       email: '',
       password: '',
-      accepted: false
+      accepted: false,
+      loading: false
     }
 
   }
@@ -17,6 +18,7 @@ export default class Register extends Component {
   handleRegister = () => {
     const { getUserInfo } = this.props
     if (this.state.name.length && this.state.email.includes('@') && this.state.password.length) {
+      this.setState({ loading: true })
       fetch('https://pacific-atoll-58394.herokuapp.com/register',
         {
           method: 'POST',
@@ -81,8 +83,8 @@ export default class Register extends Component {
           </Form.Group>
 
 
-          <Button variant="primary" type="submit" onClick={this.handleRegister}>
-            Register
+          <Button variant="primary" type="submit" onClick={this.handleRegister} disabled={this.state.loading}>
+            {this.state.loading ? 'Loading...': 'Register'} 
             </Button>
 
         </div>
